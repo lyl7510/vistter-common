@@ -10,6 +10,8 @@ public class Result implements Serializable {
 
     private Object data = null;
 
+    private long total;
+
     public Result() {
 
     }
@@ -44,4 +46,11 @@ public class Result implements Serializable {
         this.data = data;
     }
 
+    public long getTotal() {
+        return total;
+    }
+
+    public void setTotal(long total) {
+        this.total = total;
+    }
 }
