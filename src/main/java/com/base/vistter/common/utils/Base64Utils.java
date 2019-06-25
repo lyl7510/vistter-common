@@ -1,4 +1,4 @@
-package com.base.vistter.utils;
+package com.base.vistter.common.utils;
 
 import sun.misc.BASE64Encoder;
 

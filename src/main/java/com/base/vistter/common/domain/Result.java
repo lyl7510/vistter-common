@@ -1,4 +1,4 @@
-package com.base.vistter.domain;
+package com.base.vistter.common.domain;
 
 import java.io.Serializable;
 
