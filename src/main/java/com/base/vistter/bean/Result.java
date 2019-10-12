@@ -1,4 +1,4 @@
-package com.base.vistter.common.domain;
+package com.base.vistter.bean;
 
 import java.io.Serializable;
 
@@ -52,5 +52,10 @@ public class Result implements Serializable {
 
     public void setTotal(long total) {
         this.total = total;
+    }
+
+    @Override
+    public String toString() {
+        return "Result{" + "code=" + code + ", data=" + data + ", total=" + total + '}';
     }
 }
