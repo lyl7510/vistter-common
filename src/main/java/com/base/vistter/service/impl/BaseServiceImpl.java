@@ -13,9 +13,11 @@ public abstract class BaseServiceImpl implements BaseService {
 
     private BaseMapper baseMapper;
 
+    protected abstract BaseMapper getBaseMapper();
+
     @PostConstruct
-    public void setBaseMapper(BaseMapper baseMapper){
-        this.baseMapper = baseMapper;
+    protected void init(){
+        this.baseMapper = this.getBaseMapper();
     }
 
     @Override
@@ -24,13 +26,28 @@ public abstract class BaseServiceImpl implements BaseService {
     }
 
     @Override
+    public Pager findPager(Pager pager) throws PlatformException {
+        return baseMapper.findPager(pager);
+    }
+
+    @Override
     public void save(Map paramMap) throws PlatformException {
         baseMapper.save(paramMap);
     }
 
     @Override
+    public void save() throws PlatformException {
+        baseMapper.save();
+    }
+
+    @Override
     public void update(Map paramMap) throws PlatformException {
         baseMapper.update(paramMap);
+    }
+
+    @Override
+    public void update() throws PlatformException {
+        baseMapper.update();
     }
 
     @Override

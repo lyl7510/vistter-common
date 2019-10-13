@@ -1,9 +1,12 @@
 package com.base.vistter.mapper.impl;
 
 import com.base.vistter.bean.Pager;
+import com.base.vistter.bean.Result;
 import com.base.vistter.mapper.BaseMapper;
 import com.base.vistter.exception.PlatformException;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
@@ -11,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class BaseMapperImpl implements BaseMapper {
+
+    private static final Logger logger = LogManager.getLogger(BaseMapperImpl.class);
 
     @Autowired
     protected SqlSession session;
@@ -20,12 +25,14 @@ public abstract class BaseMapperImpl implements BaseMapper {
         try {
             return this.findPager(pager, null);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             throw new PlatformException();
         }
     }
 
     @Override
     public Pager findPager(Pager pager, Map paramMap) throws PlatformException {
+        logger.info("查询分页开始，查询分页参数", pager, "查询条件参数", paramMap);
         try {
             long total = session.selectOne(this.getNameSpace() + ".pagerCount", paramMap);
             if (paramMap == null) {
@@ -36,8 +43,10 @@ public abstract class BaseMapperImpl implements BaseMapper {
             List<Map> result = session.selectList(this.getNameSpace() + ".pager", paramMap);
             pager.setTotal(total);
             pager.setResult(result);
+            logger.info("查询结束");
             return pager;
         } catch (Exception e) {
+            logger.error(e.getMessage());
             throw new PlatformException();
         }
     }
@@ -47,16 +56,20 @@ public abstract class BaseMapperImpl implements BaseMapper {
         try {
             return this.findList(null);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             throw new PlatformException();
         }
     }
 
     @Override
     public List<Map> findList(Map paramMap) throws PlatformException {
+        logger.info("查询列表开始，查询参数", paramMap);
         try {
             List<Map> list = session.selectList(this.getNameSpace() + ".list", paramMap);
+            logger.info("查询列表结束, 列表结果 ", list);
             return list;
         } catch (Exception e) {
+            logger.error(e.getMessage());
             throw new PlatformException();
         }
     }
@@ -66,15 +79,20 @@ public abstract class BaseMapperImpl implements BaseMapper {
         try {
             return this.count(null);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             throw new PlatformException();
         }
     }
 
     @Override
     public long count(Map paramMap) throws PlatformException {
+        logger.info("统计个数开始， 统计参数", paramMap);
         try {
-            return session.selectOne(this.getNameSpace() + ".count", paramMap);
+            long count = session.selectOne(this.getNameSpace() + ".count", paramMap);
+            logger.info("统计个数结束， 得到个数是 ", count);
+            return count;
         } catch (Exception e) {
+            logger.error(e.getMessage());
             throw new PlatformException();
         }
     }
@@ -84,15 +102,19 @@ public abstract class BaseMapperImpl implements BaseMapper {
         try {
             this.save(null);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             throw new PlatformException();
         }
     }
 
     @Override
     public void save(Map paramMap) throws PlatformException {
+        logger.info("保存开始， 保存参数 ", paramMap);
         try {
             session.insert(this.getNameSpace() + ".save", paramMap);
+            logger.info("保存结束");
         } catch (Exception e) {
+            logger.error(e.getMessage());
             throw new PlatformException();
         }
     }
@@ -102,33 +124,43 @@ public abstract class BaseMapperImpl implements BaseMapper {
         try {
             this.update(null);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             throw new PlatformException();
         }
     }
 
     @Override
     public void update(Map paramMap) throws PlatformException {
+        logger.info("修改开始， 修改参数 ", paramMap);
         try {
             session.update(this.getNameSpace() + ".update", paramMap);
+            logger.info("修改结束");
         } catch (Exception e) {
+            logger.error(e.getMessage());
             throw new PlatformException();
         }
     }
 
     @Override
-    public void deleteById(String id) throws  PlatformException{
+    public void deleteById(String id) throws PlatformException {
+        logger.info("删除开始， 删除参数 ", id);
         try {
-            session.delete(this.getNameSpace()+ ".deleteById" , id);
+            session.delete(this.getNameSpace() + ".deleteById", id);
+            logger.info("删除结束");
         } catch (Exception e) {
+            logger.error(e.getMessage());
             throw new PlatformException();
         }
     }
 
     @Override
-    public void delete(List list) throws  PlatformException{
+    public void delete(List list) throws PlatformException {
+        logger.info("删除开始， 删除参数 ", list);
         try {
-            session.delete(this.getNameSpace()+ ".delete" , list);
+            session.delete(this.getNameSpace() + ".delete", list);
+            logger.info("删除结束");
         } catch (Exception e) {
+            logger.error(e.getMessage());
             throw new PlatformException();
         }
     }

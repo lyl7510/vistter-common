@@ -50,4 +50,10 @@ public class Pager implements Serializable {
     public void setResult(List<Map> result) {
         this.result = result;
     }
+
+    @Override
+    public String toString() {
+        return "Pager{" +  "pagerNumber=" + pagerNumber + ", total=" + total + ", pageSize=" + pageSize + '}';
+    }
+
 }
