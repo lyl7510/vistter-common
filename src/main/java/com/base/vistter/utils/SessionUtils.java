@@ -16,6 +16,8 @@ public class SessionUtils {
 
     public static final String DepartId = "BASE_DEPART_ID";
 
+    public static final String ProjectCode = "PROJECT_CODE";
+
     public static String getSession(HttpServletRequest request, String key) {
         Map sessionMap = (Map) request.getSession().getAttribute(SecurityUser);
         if (sessionMap == null) {
@@ -34,6 +36,10 @@ public class SessionUtils {
 
     public static String getDepartId(HttpServletRequest request) {
         return getSession(request, DepartId);
+    }
+
+    public static String getProjectCode(HttpServletRequest request) {
+        return getSession(request, ProjectCode);
     }
 
     public static Map getSession(HttpServletRequest request) {
