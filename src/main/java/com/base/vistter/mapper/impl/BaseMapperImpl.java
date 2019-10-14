@@ -1,9 +1,9 @@
 package com.base.vistter.mapper.impl;
 
 import com.base.vistter.bean.Pager;
-import com.base.vistter.bean.Result;
 import com.base.vistter.mapper.BaseMapper;
 import com.base.vistter.exception.PlatformException;
+import org.apache.commons.collections.MapUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,23 +21,18 @@ public abstract class BaseMapperImpl implements BaseMapper {
     protected SqlSession session;
 
     @Override
-    public Pager findPager(Pager pager) throws PlatformException {
+    public Pager findPager(Map paramMap) throws PlatformException {
+        logger.info("查询分页开始，查询分页参数", paramMap);
         try {
-            return this.findPager(pager, null);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            throw new PlatformException();
-        }
-    }
+            Pager pager = new Pager();
+            pager.setPagerNumber(MapUtils.getLongValue(paramMap , "pagerNumber"));
+            pager.setPageSize(MapUtils.getLongValue(paramMap , "pageSize"));
 
-    @Override
-    public Pager findPager(Pager pager, Map paramMap) throws PlatformException {
-        logger.info("查询分页开始，查询分页参数", pager, "查询条件参数", paramMap);
-        try {
             long total = session.selectOne(this.getNameSpace() + ".pagerCount", paramMap);
             if (paramMap == null) {
                 paramMap = new HashMap();
             }
+
             paramMap.put("start", (pager.getPagerNumber() - 1) * pager.getPageSize());
             paramMap.put("limit", pager.getPageSize());
             List<Map> result = session.selectList(this.getNameSpace() + ".pager", paramMap);

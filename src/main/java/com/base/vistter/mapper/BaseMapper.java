@@ -7,23 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 public interface BaseMapper {
-
     /**
      * 查询分页
      *
-     * @param pager
-     * @return
-     */
-    Pager findPager(Pager pager) throws PlatformException;
-
-    /**
-     * 查询分页
-     *
-     * @param pager
      * @param paramMap
      * @return
      */
-    Pager findPager(Pager pager, Map paramMap) throws PlatformException;
+    Pager findPager(Map paramMap) throws PlatformException;
 
     /**
      * 查询列表

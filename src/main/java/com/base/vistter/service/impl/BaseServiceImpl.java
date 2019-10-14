@@ -24,13 +24,8 @@ public abstract class BaseServiceImpl implements BaseService {
     }
 
     @Transactional(readOnly = true)
-    public Pager findPager(Pager pager, Map paramMap) throws PlatformException {
-        return baseMapper.findPager(pager, paramMap);
-    }
-
-    @Transactional(readOnly = true)
-    public Pager findPager(Pager pager) throws PlatformException {
-        return baseMapper.findPager(pager);
+    public Pager findPager( Map paramMap) throws PlatformException {
+        return baseMapper.findPager(paramMap);
     }
 
     @Transactional(readOnly = true)

@@ -8,9 +8,7 @@ import java.util.Map;
 
 public interface BaseService {
 
-    Pager findPager(Pager pager, Map paramMap) throws PlatformException;
-
-    Pager findPager(Pager pager) throws PlatformException;
+    Pager findPager(Map paramMap) throws PlatformException;
 
     void save(Map paramMap) throws PlatformException;
 
