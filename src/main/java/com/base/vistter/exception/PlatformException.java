@@ -2,19 +2,21 @@ package com.base.vistter.exception;
 
 public class PlatformException extends Exception{
 
+    public int code = 999; //服务器异常
+
+    public PlatformException(int code){
+        this.code = code;
+    }
+
     public PlatformException() {
         super();
     }
 
-    public PlatformException(String message) {
-        super(message);
+    public int getCode() {
+        return code;
     }
 
-    public PlatformException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public PlatformException(Throwable cause) {
-        super(cause);
+    public void setCode(int code) {
+        this.code = code;
     }
 }
