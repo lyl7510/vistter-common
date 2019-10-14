@@ -115,6 +115,14 @@ public interface BaseMapper {
 
     /**
      *
+     * @param statement
+     * @param parameter
+     * @throws PlatformException
+     */
+    void update(String statement, Object parameter) throws PlatformException;
+
+    /**
+     *
      * @param id
      * @throws PlatformException
      */

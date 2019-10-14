@@ -124,7 +124,7 @@ public abstract class BaseMapperImpl implements BaseMapper {
     }
 
     @Override
-    public Map load(String id) throws PlatformException{
+    public Map load(String id) throws PlatformException {
         logger.info("加载单条数据， 加载参数 ", id);
         try {
             return session.selectOne(this.getNameSpace() + ".load", id);
@@ -135,7 +135,7 @@ public abstract class BaseMapperImpl implements BaseMapper {
     }
 
     @Override
-    public Map load(String statement, Object parameter) throws PlatformException{
+    public Map load(String statement, Object parameter) throws PlatformException {
         logger.info("加载单条数据， 加载参数 ", parameter);
         try {
             return session.selectOne(this.getNameSpace() + "." + statement, parameter);
@@ -182,6 +182,18 @@ public abstract class BaseMapperImpl implements BaseMapper {
         logger.info("修改开始， 修改参数 ", paramMap);
         try {
             session.update(this.getNameSpace() + ".update", paramMap);
+            logger.info("修改结束");
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            throw new PlatformException();
+        }
+    }
+
+    @Override
+    public void update(String statement, Object parameter) throws PlatformException {
+        logger.info("修改开始， 修改参数 ", parameter);
+        try {
+            session.update(this.getNameSpace() + "." + statement, parameter);
             logger.info("修改结束");
         } catch (Exception e) {
             logger.error(e.getMessage());
