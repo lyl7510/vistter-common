@@ -125,5 +125,11 @@ public interface BaseMapper {
      */
     void delete(List list) throws  PlatformException;
 
-
+    /**
+     *
+     * @param statement
+     * @param parameter
+     * @throws PlatformException
+     */
+    void delete(String statement, Object parameter) throws PlatformException;
 }

@@ -25,8 +25,8 @@ public abstract class BaseMapperImpl implements BaseMapper {
         logger.info("查询分页开始，查询分页参数", paramMap);
         try {
             Pager pager = new Pager();
-            pager.setPagerNumber(MapUtils.getLongValue(paramMap , "pagerNumber"));
-            pager.setPageSize(MapUtils.getLongValue(paramMap , "pageSize"));
+            pager.setPagerNumber(MapUtils.getLongValue(paramMap, "pagerNumber"));
+            pager.setPageSize(MapUtils.getLongValue(paramMap, "pageSize"));
 
             long total = session.selectOne(this.getNameSpace() + ".pagerCount", paramMap);
             if (paramMap == null) {
@@ -213,6 +213,18 @@ public abstract class BaseMapperImpl implements BaseMapper {
         logger.info("删除开始， 删除参数 ", list);
         try {
             session.delete(this.getNameSpace() + ".delete", list);
+            logger.info("删除结束");
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            throw new PlatformException();
+        }
+    }
+
+    @Override
+    public void delete(String statement, Object parameter) throws PlatformException {
+        logger.info("删除开始， 删除参数 ", parameter);
+        try {
+            session.delete(this.getNameSpace() + "." + statement, parameter);
             logger.info("删除结束");
         } catch (Exception e) {
             logger.error(e.getMessage());
