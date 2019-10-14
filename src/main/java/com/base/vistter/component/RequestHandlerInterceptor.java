@@ -18,9 +18,11 @@ public class RequestHandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        logger.info("进入参数设置拦截器");
         Map userMap = SessionUtils.getSession(request);
-        logger.info("拦截器所有参数" , userMap);
+        if(userMap == null){
+            logger.error("会话超时，请重新登录");
+        }
+        logger.info("拦截器会话参数" , userMap);
         SystemContextHolder.setSessionContext(userMap);
         return true;
     }
