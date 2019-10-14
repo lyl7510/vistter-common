@@ -20,7 +20,10 @@ public interface BaseService {
 
     void update() throws PlatformException;
 
+    Map load(String id) throws PlatformException;
+
     void deleteById(String id) throws PlatformException;
 
     void delete(List list) throws PlatformException;
+
 }

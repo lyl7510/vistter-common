@@ -15,7 +15,7 @@ import java.util.Map;
 
 public abstract class BaseMapperImpl implements BaseMapper {
 
-    private static final Logger logger = LogManager.getLogger(BaseMapperImpl.class);
+    protected static final Logger logger = LogManager.getLogger(BaseMapperImpl.class);
 
     @Autowired
     protected SqlSession session;
@@ -75,6 +75,19 @@ public abstract class BaseMapperImpl implements BaseMapper {
     }
 
     @Override
+    public List<Map> findList(String statement, Object parameter) throws PlatformException {
+        logger.info("查询列表开始，查询参数", parameter);
+        try {
+            List<Map> list = session.selectList(this.getNameSpace() + "." + statement, parameter);
+            logger.info("查询列表结束, 列表结果 ", list);
+            return list;
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            throw new PlatformException();
+        }
+    }
+
+    @Override
     public long count() throws PlatformException {
         try {
             return this.count(null);
@@ -91,6 +104,41 @@ public abstract class BaseMapperImpl implements BaseMapper {
             long count = session.selectOne(this.getNameSpace() + ".count", paramMap);
             logger.info("统计个数结束， 得到个数是 ", count);
             return count;
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            throw new PlatformException();
+        }
+    }
+
+    @Override
+    public long count(String statement, Object parameter) throws PlatformException {
+        logger.info("统计个数开始， 统计参数", parameter);
+        try {
+            long count = session.selectOne(this.getNameSpace() + "." + statement, parameter);
+            logger.info("统计个数结束， 得到个数是 ", count);
+            return count;
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            throw new PlatformException();
+        }
+    }
+
+    @Override
+    public Map load(String id) throws PlatformException{
+        logger.info("加载单条数据， 加载参数 ", id);
+        try {
+            return session.selectOne(this.getNameSpace() + ".load", id);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            throw new PlatformException();
+        }
+    }
+
+    @Override
+    public Map load(String statement, Object parameter) throws PlatformException{
+        logger.info("加载单条数据， 加载参数 ", parameter);
+        try {
+            return session.selectOne(this.getNameSpace() + "." + statement, parameter);
         } catch (Exception e) {
             logger.error(e.getMessage());
             throw new PlatformException();

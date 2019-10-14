@@ -4,11 +4,14 @@ import com.base.vistter.bean.Pager;
 import com.base.vistter.exception.PlatformException;
 import com.base.vistter.mapper.BaseMapper;
 import com.base.vistter.service.BaseService;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Map;
 
+@Transactional
 public abstract class BaseServiceImpl implements BaseService {
 
     private BaseMapper baseMapper;
@@ -16,46 +19,51 @@ public abstract class BaseServiceImpl implements BaseService {
     protected abstract BaseMapper getBaseMapper();
 
     @PostConstruct
-    protected void init(){
+    protected void init() {
         this.baseMapper = this.getBaseMapper();
     }
 
-    @Override
+    @Transactional(readOnly = true)
     public Pager findPager(Pager pager, Map paramMap) throws PlatformException {
         return baseMapper.findPager(pager, paramMap);
     }
 
-    @Override
+    @Transactional(readOnly = true)
     public Pager findPager(Pager pager) throws PlatformException {
         return baseMapper.findPager(pager);
     }
 
-    @Override
+    @Transactional(readOnly = true)
+    public Map load(String id) throws PlatformException {
+        return baseMapper.load(id);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
     public void save(Map paramMap) throws PlatformException {
         baseMapper.save(paramMap);
     }
 
-    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public void save() throws PlatformException {
         baseMapper.save();
     }
 
-    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public void update(Map paramMap) throws PlatformException {
         baseMapper.update(paramMap);
     }
 
-    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public void update() throws PlatformException {
         baseMapper.update();
     }
 
-    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public void deleteById(String id) throws PlatformException {
         baseMapper.deleteById(id);
     }
 
-    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public void delete(List list) throws PlatformException {
         baseMapper.delete(list);
     }

@@ -3,7 +3,6 @@ package com.base.vistter.mapper;
 import com.base.vistter.bean.Pager;
 import com.base.vistter.exception.PlatformException;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +41,14 @@ public interface BaseMapper {
     List<Map> findList(Map paramMap) throws PlatformException;
 
     /**
+     *
+     * @param statement
+     * @param parameter
+     * @return
+     * @throws PlatformException
+     */
+    List<Map> findList(String statement, Object parameter) throws PlatformException;
+    /**
      * 查询记录数
      *
      * @return
@@ -55,6 +62,32 @@ public interface BaseMapper {
      * @return
      */
     long count(Map paramMap) throws PlatformException;
+
+    /**
+     *
+     * @param statement
+     * @param parameter
+     * @return
+     * @throws PlatformException
+     */
+    long count(String statement, Object parameter) throws PlatformException;
+
+    /**
+     *
+     * @param id
+     * @return
+     * @throws PlatformException
+     */
+    Map load(String id) throws PlatformException;
+
+    /**
+     *
+     * @param statement
+     * @param parameter
+     * @return
+     * @throws PlatformException
+     */
+    Map load(String statement, Object parameter) throws PlatformException;
 
     /**
      * 保存记录
@@ -93,4 +126,6 @@ public interface BaseMapper {
      * @throws PlatformException
      */
     void delete(List list) throws  PlatformException;
+
+
 }
