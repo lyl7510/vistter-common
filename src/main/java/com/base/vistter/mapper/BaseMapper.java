@@ -106,10 +106,10 @@ public interface BaseMapper {
     /**
      *
      * @param statement
-     * @param parameter
+     * @param paramMap
      * @throws PlatformException
      */
-    void update(String statement, Object parameter) throws PlatformException;
+    void update(String statement, Map paramMap) throws PlatformException;
 
     /**
      *

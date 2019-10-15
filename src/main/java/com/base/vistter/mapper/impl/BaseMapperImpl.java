@@ -1,6 +1,7 @@
 package com.base.vistter.mapper.impl;
 
 import com.base.vistter.bean.Pager;
+import com.base.vistter.bean.SystemContextHolder;
 import com.base.vistter.mapper.BaseMapper;
 import com.base.vistter.exception.PlatformException;
 import org.apache.commons.collections.MapUtils;
@@ -153,6 +154,12 @@ public abstract class BaseMapperImpl implements BaseMapper {
     @Override
     public void save(Map paramMap) throws PlatformException {
         logger.info("保存开始， 保存参数 ", paramMap);
+        if(paramMap == null){
+            paramMap = new HashMap();
+        }
+        paramMap.put("CREATEOR" , MapUtils.getString(SystemContextHolder.getSessionContext() , "ID"));
+        paramMap.put("MODIFIER" , MapUtils.getString(SystemContextHolder.getSessionContext() , "ID"));
+
         try {
             session.insert(this.getNameSpace() + ".save", paramMap);
             logger.info("保存结束");
@@ -175,6 +182,10 @@ public abstract class BaseMapperImpl implements BaseMapper {
     @Override
     public void update(Map paramMap) throws PlatformException {
         logger.info("修改开始， 修改参数 ", paramMap);
+        if(paramMap == null){
+            paramMap = new HashMap();
+        }
+        paramMap.put("MODIFIER" , MapUtils.getString(SystemContextHolder.getSessionContext() , "ID"));
         try {
             session.update(this.getNameSpace() + ".update", paramMap);
             logger.info("修改结束");
@@ -185,10 +196,11 @@ public abstract class BaseMapperImpl implements BaseMapper {
     }
 
     @Override
-    public void update(String statement, Object parameter) throws PlatformException {
-        logger.info("修改开始， 修改参数 ", parameter);
+    public void update(String statement, Map paramMap) throws PlatformException {
+        logger.info("修改开始， 修改参数 ", paramMap);
+        paramMap.put("MODIFIER" , MapUtils.getString(SystemContextHolder.getSessionContext() , "ID"));
         try {
-            session.update(this.getNameSpace() + "." + statement, parameter);
+            session.update(this.getNameSpace() + "." + statement, paramMap);
             logger.info("修改结束");
         } catch (Exception e) {
             logger.error(e.getMessage());

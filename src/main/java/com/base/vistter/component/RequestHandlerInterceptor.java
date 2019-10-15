@@ -20,7 +20,7 @@ public class RequestHandlerInterceptor implements HandlerInterceptor {
         if(userMap == null){
             logger.error("会话超时，请重新登录");
         }
-        logger.info("拦截器会话参数" , userMap);
+        logger.info("拦截器会话参数 , {}" , userMap);
         SystemContextHolder.setSessionContext(userMap);
         return true;
     }
