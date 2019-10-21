@@ -1,4 +1,4 @@
-package com.base.vistter.exception;
+package com.base.vistter.common.exception;
 
 public class PlatformException extends Exception{
 

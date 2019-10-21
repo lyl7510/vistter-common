@@ -1,9 +1,9 @@
-package com.base.vistter.mapper.impl;
+package com.base.vistter.common.mapper.impl;
 
-import com.base.vistter.bean.Pager;
-import com.base.vistter.bean.SystemContextHolder;
-import com.base.vistter.mapper.BaseMapper;
-import com.base.vistter.exception.PlatformException;
+import com.base.vistter.common.bean.Pager;
+import com.base.vistter.common.bean.SystemContextHolder;
+import com.base.vistter.common.mapper.BaseMapper;
+import com.base.vistter.common.exception.PlatformException;
 import org.apache.commons.collections.MapUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;

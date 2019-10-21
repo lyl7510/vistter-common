@@ -1,7 +1,7 @@
-package com.base.vistter.service;
+package com.base.vistter.common.service;
 
-import com.base.vistter.bean.Pager;
-import com.base.vistter.exception.PlatformException;
+import com.base.vistter.common.bean.Pager;
+import com.base.vistter.common.exception.PlatformException;
 
 import java.util.List;
 import java.util.Map;

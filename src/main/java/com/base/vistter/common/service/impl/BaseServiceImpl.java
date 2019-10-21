@@ -1,9 +1,9 @@
-package com.base.vistter.service.impl;
+package com.base.vistter.common.service.impl;
 
-import com.base.vistter.bean.Pager;
-import com.base.vistter.exception.PlatformException;
-import com.base.vistter.mapper.BaseMapper;
-import com.base.vistter.service.BaseService;
+import com.base.vistter.common.bean.Pager;
+import com.base.vistter.common.exception.PlatformException;
+import com.base.vistter.common.mapper.BaseMapper;
+import com.base.vistter.common.service.BaseService;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 

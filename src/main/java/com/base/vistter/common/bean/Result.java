@@ -1,4 +1,4 @@
-package com.base.vistter.bean;
+package com.base.vistter.common.bean;
 
 import java.io.Serializable;
 

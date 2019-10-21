@@ -1,7 +1,7 @@
-package com.base.vistter.component;
+package com.base.vistter.common.component;
 
-import com.base.vistter.bean.SystemContextHolder;
-import com.base.vistter.utils.SessionUtils;
+import com.base.vistter.common.bean.SystemContextHolder;
+import com.base.vistter.common.utils.SessionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
